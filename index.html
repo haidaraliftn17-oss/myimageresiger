@@ -4,6 +4,7 @@
 <title>Image Resizer Tool</title>
 
 <style>
+
 body{
 font-family:Arial;
 background:#f2f2f2;
@@ -28,25 +29,26 @@ margin-bottom:15px;
 
 button{
 padding:8px 15px;
-margin-top:10px;
+margin:5px;
 cursor:pointer;
 }
 
 canvas{
 display:block;
-margin:10px auto;
+margin:15px auto;
 max-width:100%;
 }
 
 #download{
 display:inline-block;
 margin-top:10px;
-padding:8px 15px;
+padding:10px 20px;
 background:#4CAF50;
 color:white;
 text-decoration:none;
 border-radius:4px;
 }
+
 </style>
 
 </head>
@@ -72,6 +74,16 @@ Select or Drag Image
 
 <button onclick="resize()">Resize</button>
 
+<br><br>
+
+<b>Quick Compress</b>
+<br>
+
+<button onclick="compress(20)">20KB</button>
+<button onclick="compress(30)">30KB</button>
+<button onclick="compress(40)">40KB</button>
+<button onclick="compress(50)">50KB</button>
+
 <canvas id="canvas"></canvas>
 
 <a id="download" download="image.jpg">Download Image</a>
@@ -95,6 +107,19 @@ document.getElementById("h").innerText=img.height;
 
 function resize(){
 
+let kb=document.getElementById("kb").value;
+
+if(!kb){
+alert("Enter target KB");
+return;
+}
+
+compress(kb);
+
+}
+
+function compress(targetKB){
+
 let canvas=document.getElementById("canvas");
 let ctx=canvas.getContext("2d");
 
@@ -103,7 +128,17 @@ canvas.height=img.height;
 
 ctx.drawImage(img,0,0);
 
-let url=canvas.toDataURL("image/jpeg",0.8);
+let quality=0.9;
+let url;
+let sizeKB;
+
+do{
+
+url=canvas.toDataURL("image/jpeg",quality);
+sizeKB=Math.round((url.length*3/4)/1024);
+quality-=0.05;
+
+}while(sizeKB>targetKB && quality>0.05);
 
 document.getElementById("download").href=url;
 
