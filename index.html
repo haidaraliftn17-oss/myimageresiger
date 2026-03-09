@@ -23,23 +23,40 @@ box-shadow:0 0 10px rgba(0,0,0,0.1);
 /* Upload box */
 .drop{
 border:2px dashed #999;
-height:200px;
+padding:40px 20px;
 cursor:pointer;
 margin-bottom:15px;
 border-radius:10px;
 background:#fafafa;
-
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:18px;
-color:#555;
+text-align:center;
 }
 
 .drop:hover{
 background:#f0f0f0;
 }
 
+.upload-text{
+font-size:18px;
+color:#555;
+margin-bottom:15px;
+}
+
+/* Blue button */
+.blue-btn{
+background:#007BFF;
+color:white;
+border:none;
+padding:10px 20px;
+border-radius:5px;
+cursor:pointer;
+font-size:15px;
+}
+
+.blue-btn:hover{
+background:#0056b3;
+}
+
+/* Other buttons */
 button{
 padding:8px 15px;
 margin:5px;
@@ -72,8 +89,15 @@ border-radius:4px;
 <h2>Image Resize Tool</h2>
 
 <div class="drop" id="dropArea">
-Select or Drag Image
+
+<div class="upload-text">
+Select or Drag and Drop Image Here
+</div>
+
+<button class="blue-btn" onclick="selectImage()">Select Image</button>
+
 <input type="file" id="file" hidden>
+
 </div>
 
 <p>Width: <span id="w"></span></p>
@@ -82,8 +106,9 @@ Select or Drag Image
 <p>Target Size (KB)</p>
 <input type="number" id="kb" placeholder="Example 200">
 
-<br>
-<button onclick="resize()">Resize</button>
+<br><br>
+
+<button class="blue-btn" onclick="resize()">Resize</button>
 
 <br><br>
 
@@ -105,6 +130,10 @@ Select or Drag Image
 
 let fileInput=document.getElementById("file");
 let img=new Image();
+
+function selectImage(){
+fileInput.click();
+}
 
 fileInput.onchange=function(){
 let file=this.files[0];
