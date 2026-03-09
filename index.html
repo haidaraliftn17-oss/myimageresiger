@@ -11,40 +11,40 @@ body{
   text-align:center;
 }
 
-/* Container bigger */
 .container{
   background:white;
-  width:520px;
+  width:420px;
   margin:40px auto;
   padding:20px;
   border-radius:10px;
   box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
 
-/* Upload box bigger */
+/* Upload Box */
 .drop{
   border:2px dashed #999;
-  padding:60px 20px;
+  padding:40px;
   cursor:pointer;
   margin-bottom:15px;
   border-radius:10px;
   background:#fafafa;
-  transition:0.3s;
 }
 
-.drop:hover{
-  background:#f0f0f0;
-}
-
-/* Very big gallery icon */
+/* Gallery Logo BIG */
 .upload-icon{
-  width:300px;
-  max-width:100%;
-  opacity:0.9;
-  margin-bottom:15px;
+  width:100%;
+  max-width:260px;
+  display:block;
+  margin:auto;
 }
 
-/* Buttons */
+span{
+  display:block;
+  margin-top:10px;
+  font-size:16px;
+  color:#555;
+}
+
 button{
   padding:8px 15px;
   margin:5px;
@@ -79,8 +79,6 @@ canvas{
 <div class="drop" id="dropArea">
 
 <img src="gallery.png" class="upload-icon">
-
-<br>
 
 <span>Select or Drag Image</span>
 
@@ -176,9 +174,9 @@ document.getElementById("download").href=url;
 
 }
 
-document.getElementById("dropArea").addEventListener("click",function(){
+document.getElementById("dropArea").onclick=function(){
 fileInput.click();
-});
+};
 
 </script>
 
