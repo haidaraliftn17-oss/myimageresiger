@@ -20,15 +20,6 @@ border-radius:10px;
 box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
 
-h1{
-margin-bottom:5px;
-}
-
-p{
-color:gray;
-font-size:14px;
-}
-
 .drop-box{
 border:2px dashed #aaa;
 padding:40px;
@@ -45,7 +36,6 @@ border-radius:6px;
 background:#007bff;
 color:white;
 cursor:pointer;
-font-size:14px;
 }
 
 button:hover{
@@ -92,7 +82,6 @@ Select Image
 <br>
 
 <label>Enter Size (KB)</label><br>
-
 <input type="number" id="size" placeholder="50">
 
 <br><br>
@@ -116,7 +105,7 @@ Select Image
 
 <script>
 
-let resizedImage="";
+let finalBlob;
 
 function setSize(kb){
 document.getElementById("size").value = kb;
@@ -149,17 +138,30 @@ canvas.height=img.height;
 ctx.drawImage(img,0,0);
 
 let quality=0.9;
-let result;
 
-do{
-result=canvas.toDataURL("image/jpeg",quality);
-quality-=0.05;
-}
-while((result.length/1024)>targetKB && quality>0.1);
+function compress(){
 
-resizedImage=result;
+canvas.toBlob(function(blob){
 
+let sizeKB = blob.size/1024;
+
+if(sizeKB > targetKB && quality > 0.1){
+
+quality -= 0.05;
+compress();
+
+}else{
+
+finalBlob = blob;
 document.getElementById("downloadBtn").style.display="inline-block";
+
+}
+
+},"image/jpeg",quality);
+
+}
+
+compress();
 
 }
 
@@ -174,7 +176,7 @@ reader.readAsDataURL(file);
 document.getElementById("downloadBtn").onclick=function(){
 
 let a=document.createElement("a");
-a.href=resizedImage;
+a.href=URL.createObjectURL(finalBlob);
 a.download="compressed-image.jpg";
 a.click();
 
