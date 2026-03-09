@@ -39,14 +39,13 @@ background:#fafafa;
 
 button{
 padding:10px 20px;
-margin-top:10px;
+margin:5px;
 border:none;
 border-radius:6px;
 background:#007bff;
 color:white;
 cursor:pointer;
 font-size:14px;
-margin:5px;
 }
 
 button:hover{
@@ -59,11 +58,11 @@ padding:6px;
 width:100px;
 }
 
-.quick-buttons button{
+.quick button{
 background:#28a745;
 }
 
-.quick-buttons button:hover{
+.quick button:hover{
 background:#1e7e34;
 }
 
@@ -79,6 +78,7 @@ background:#1e7e34;
 <p>Compress an image to 20kb, 50kb, 200kb, or any other size</p>
 
 <div class="drop-box">
+
 <p>Select or Drag and Drop Image Here</p>
 
 <button onclick="document.getElementById('imageInput').click()">
@@ -92,13 +92,12 @@ Select Image
 <br>
 
 <label>Enter Size (KB)</label><br>
+
 <input type="number" id="size" placeholder="50">
 
-<br>
+<br><br>
 
-<p style="margin-top:15px;">Quick Compress</p>
-
-<div class="quick-buttons">
+<div class="quick">
 <button onclick="setSize(20)">20 KB</button>
 <button onclick="setSize(30)">30 KB</button>
 <button onclick="setSize(40)">40 KB</button>
@@ -107,21 +106,17 @@ Select Image
 
 <br>
 
-<button onclick="resizeImage()">
-Resize Image
-</button>
+<button onclick="resizeImage()">Resize Image</button>
 
-<br>
+<br><br>
 
-<button id="downloadBtn" style="display:none;">
-Download Image
-</button>
+<button id="downloadBtn" style="display:none;">Download Image</button>
 
 </div>
 
 <script>
 
-let resizedImage = "";
+let resizedImage="";
 
 function setSize(kb){
 document.getElementById("size").value = kb;
@@ -129,36 +124,46 @@ document.getElementById("size").value = kb;
 
 function resizeImage(){
 
-let file = document.getElementById("imageInput").files[0];
+let file=document.getElementById("imageInput").files[0];
+let targetKB=document.getElementById("size").value;
 
 if(!file){
 alert("Please select image");
 return;
 }
 
-let reader = new FileReader();
+let reader=new FileReader();
 
-reader.onload = function(e){
+reader.onload=function(e){
 
-let img = new Image();
+let img=new Image();
 
-img.onload = function(){
+img.onload=function(){
 
-let canvas = document.createElement("canvas");
-let ctx = canvas.getContext("2d");
+let canvas=document.createElement("canvas");
+let ctx=canvas.getContext("2d");
 
-canvas.width = img.width;
-canvas.height = img.height;
+canvas.width=img.width;
+canvas.height=img.height;
 
 ctx.drawImage(img,0,0);
 
-resizedImage = canvas.toDataURL("image/jpeg",0.7);
+let quality=0.9;
+let result;
+
+do{
+result=canvas.toDataURL("image/jpeg",quality);
+quality-=0.05;
+}
+while((result.length/1024)>targetKB && quality>0.1);
+
+resizedImage=result;
 
 document.getElementById("downloadBtn").style.display="inline-block";
 
 }
 
-img.src = e.target.result;
+img.src=e.target.result;
 
 }
 
