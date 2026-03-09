@@ -11,40 +11,48 @@ body{
   text-align:center;
 }
 
+/* Bigger container */
 .container{
   background:white;
-  width:420px;
+  width:600px;
   margin:40px auto;
   padding:20px;
   border-radius:10px;
   box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
 
-/* Upload Box */
+/* Upload box */
 .drop{
   border:2px dashed #999;
-  padding:40px;
+  padding:60px 20px;
   cursor:pointer;
   margin-bottom:15px;
   border-radius:10px;
   background:#fafafa;
+  transition:0.3s;
 }
 
-/* Gallery Logo BIG */
+.drop:hover{
+  background:#f0f0f0;
+}
+
+/* Big gallery logo */
 .upload-icon{
   width:100%;
-  max-width:260px;
+  max-width:350px;
   display:block;
   margin:auto;
+  opacity:0.9;
 }
 
-span{
+.drop span{
   display:block;
-  margin-top:10px;
-  font-size:16px;
+  margin-top:15px;
+  font-size:18px;
   color:#555;
 }
 
+/* Buttons */
 button{
   padding:8px 15px;
   margin:5px;
