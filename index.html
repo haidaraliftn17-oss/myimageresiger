@@ -4,25 +4,27 @@
 <title>Image Resizer Tool</title>
 
 <style>
+
 body{
   font-family:Arial;
   background:#f2f2f2;
   text-align:center;
 }
 
+/* Container bigger */
 .container{
   background:white;
-  width:420px;
+  width:520px;
   margin:40px auto;
   padding:20px;
   border-radius:10px;
   box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
 
-/* Upload box */
+/* Upload box bigger */
 .drop{
   border:2px dashed #999;
-  padding:50px 20px;
+  padding:60px 20px;
   cursor:pointer;
   margin-bottom:15px;
   border-radius:10px;
@@ -34,11 +36,12 @@ body{
   background:#f0f0f0;
 }
 
-/* Big gallery icon */
+/* Very big gallery icon */
 .upload-icon{
-  width:230px;
+  width:300px;
+  max-width:100%;
   opacity:0.9;
-  margin-bottom:10px;
+  margin-bottom:15px;
 }
 
 /* Buttons */
@@ -63,6 +66,7 @@ canvas{
   text-decoration:none;
   border-radius:4px;
 }
+
 </style>
 </head>
 
@@ -72,7 +76,6 @@ canvas{
 
 <h2>Image Resize Tool</h2>
 
-<!-- Upload area -->
 <div class="drop" id="dropArea">
 
 <img src="gallery.png" class="upload-icon">
@@ -172,8 +175,6 @@ quality-=0.01;
 document.getElementById("download").href=url;
 
 }
-
-/* Upload click */
 
 document.getElementById("dropArea").addEventListener("click",function(){
 fileInput.click();
